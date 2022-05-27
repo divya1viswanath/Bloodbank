@@ -1,4 +1,6 @@
+import axios from 'axios'
 import React, { useState } from 'react'
+import Header from './Header'
                     
 const Signup = () => {
     var [name,setName]=useState("")
@@ -10,10 +12,25 @@ const Signup = () => {
     const subData=()=>{
         const data={"name":name,"address":address,"bloodGroup":bloodgroup,"mobileNo":mobileno,"userName":username,"password":password}
         console.log(data)
+        axios.post("http://localhost:5000/api/signup",data).then(
+            (response)=>{
+                console.log(response.data)
+                if(response.data.status=="success")
+                {
+                    alert("Successfully added")
+
+                }
+                else
+                {
+                    alert("Failed to store")
+                }
+
+        })
         
     }  
   return (
     <div>
+        <Header/>
         <div className="container">
             <div className="row">
                 <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -43,9 +60,9 @@ const Signup = () => {
                         <input onChange={(e)=>{setPassword(e.target.value)}} placeholder="Enter your password" type="password" name="" id="" className="form-control"/>
 
                         </div>
-                        <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <center><div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <button onClick={subData} className="btn btn-primary">SIGNUP</button>
-                        </div>
+                        </div></center>
                     </div>
                 </div>
             </div>
